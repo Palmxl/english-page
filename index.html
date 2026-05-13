@@ -26,9 +26,9 @@
   </script>
   <style>
     html, body { height: 100%; margin: 0; overflow: hidden; }
-    .slide { display: none; opacity: 0; transition: opacity 0.5s ease; }
+    .slide { display: none; opacity: 0; transition: opacity 0.5s ease; overflow-y: auto; }
     .slide.active { display: flex; opacity: 1; }
-    .stat-num { font-size: clamp(2rem, 5vw, 4rem); }
+    .stat-num { font-size: clamp(1.5rem, 4vw, 3.5rem); }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     .fade-up { animation: fadeUp 0.6s ease forwards; }
     .fade-up-d1 { animation-delay: 0.1s; opacity: 0; }
@@ -37,357 +37,386 @@
     .fade-up-d4 { animation-delay: 0.4s; opacity: 0; }
     .fade-up-d5 { animation-delay: 0.5s; opacity: 0; }
     .progress-bar { transition: width 0.3s ease; }
-    .icon-circle { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .icon-circle { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    @media (max-width: 768px) {
+      .icon-circle { width: 40px; height: 40px; }
+    }
   </style>
   <style>body { box-sizing: border-box; }</style>
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
  </head>
  <body class="h-full w-full font-mont bg-sand">
-  <div id="app" class="h-full w-full relative overflow-hidden">
-   <!-- Progress Bar -->
+  <div id="app" class="h-full w-full relative overflow-hidden"><!-- Progress Bar -->
    <div class="absolute top-0 left-0 w-full h-1 bg-earthLight z-50">
     <div id="progressBar" class="progress-bar h-full bg-leaf" style="width:10%"></div>
    </div><!-- Slide Counter -->
    <div id="slideCounter" class="absolute top-4 right-6 text-sm text-leafLight font-medium z-50">
     1 / 10
    </div><!-- SLIDE 1: Title -->
-   <div class="slide active flex-col items-center justify-center h-full w-full p-8 text-center" data-slide="1">
+   <div class="slide active flex-col items-center justify-center min-h-full w-full p-4 md:p-8 text-center" data-slide="1">
     <div class="absolute inset-0 opacity-10">
-     <svg viewbox="0 0 800 600" class="w-full h-full"><circle cx="200" cy="150" r="120" fill="#2d6a4f" /><circle cx="600" cy="450" r="160" fill="#40916c" /><circle cx="700" cy="100" r="80" fill="#d4a373" />
+     <svg viewbox="0 0 800 600" class="w-full h-full">
+      <circle cx="200" cy="150" r="120" fill="#2d6a4f" /><circle cx="600" cy="450" r="160" fill="#40916c" /><circle cx="700" cy="100" r="80" fill="#d4a373" />
      </svg>
     </div>
     <div class="relative z-10 max-w-3xl mx-auto">
-     <div class="flex justify-center gap-3 mb-6 fade-up">
-      <span class="bg-leaf text-white text-xs font-bold px-3 py-1 rounded-full">SDG 2</span> <span class="bg-leafLight text-white text-xs font-bold px-3 py-1 rounded-full">SDG 11</span> <span class="bg-earth text-white text-xs font-bold px-3 py-1 rounded-full">SDG 12</span>
+     <div class="flex justify-center gap-2 md:gap-3 mb-4 md:mb-6 fade-up flex-wrap"><span class="bg-leaf text-white text-xs font-bold px-3 py-1 rounded-full">SDG 2</span> <span class="bg-leafLight text-white text-xs font-bold px-3 py-1 rounded-full">SDG 11</span> <span class="bg-earth text-white text-xs font-bold px-3 py-1 rounded-full">SDG 12</span>
      </div>
-     <h1 id="titleText" class="text-4xl md:text-6xl font-black text-leafDark leading-tight fade-up fade-up-d1">Urban Agriculture in Bogotá</h1>
-     <p class="text-xl md:text-2xl text-leafLight font-light mt-4 fade-up fade-up-d2">Ecological Urbanism for Sustainable Cities</p>
-     <div class="w-20 h-1 bg-earth mx-auto my-6 rounded fade-up fade-up-d3"></div>
-     <p id="subtitleText" class="text-sm md:text-base text-gray-600 fade-up fade-up-d4">Systems Engineering &amp; Pharmaceutical Chemistry Perspectives</p>
-     <div class="flex flex-col md:flex-row justify-center gap-2 md:gap-3 mt-4 text-xs md:text-sm fade-up fade-up-d5"><span class="text-gray-500">Juan Martín Sánchez</span> <span class="text-gray-400">&amp;</span> <span class="text-gray-500">Juana Valentina Barrados</span>
+     <h1 id="titleText" class="text-2xl md:text-5xl lg:text-6xl font-black text-leafDark leading-tight fade-up fade-up-d1">Urban Agriculture in Bogotá</h1>
+     <p class="text-base md:text-xl lg:text-2xl text-leafLight font-light mt-3 md:mt-4 fade-up fade-up-d2">Ecological Urbanism for Sustainable Cities</p>
+     <div class="w-20 h-1 bg-earth mx-auto my-4 md:my-6 rounded fade-up fade-up-d3"></div>
+     <p id="subtitleText" class="text-xs md:text-sm text-gray-600 fade-up fade-up-d4">Systems Engineering &amp; Pharmaceutical Chemistry Perspectives</p>
+     <div class="flex flex-col md:flex-row justify-center gap-1 md:gap-3 mt-3 md:mt-4 text-xs md:text-sm fade-up fade-up-d5">
+      <span class="text-gray-500">Juan Martín Sánchez</span> <span class="text-gray-400">&amp;</span> <span class="text-gray-500">Juana Valentina Barrados</span>
      </div>
-     <div class="flex justify-center gap-4 mt-6 md:mt-8 fade-up fade-up-d5">
-      <div class="icon-circle bg-leaf/10"><i data-lucide="sprout" class="text-leaf w-6 h-6"></i>
+     <div class="flex justify-center gap-3 md:gap-4 mt-4 md:mt-6 fade-up fade-up-d5">
+      <div class="icon-circle bg-leaf/10">
+       <i data-lucide="sprout" class="text-leaf w-5 h-5 md:w-6 md:h-6"></i>
       </div>
-      <div class="icon-circle bg-leaf/10"><i data-lucide="cpu" class="text-leaf w-6 h-6"></i>
+      <div class="icon-circle bg-leaf/10">
+       <i data-lucide="cpu" class="text-leaf w-5 h-5 md:w-6 md:h-6"></i>
       </div>
-      <div class="icon-circle bg-leaf/10"><i data-lucide="flask-round" class="text-leaf w-6 h-6"></i>
+      <div class="icon-circle bg-leaf/10">
+       <i data-lucide="flask-round" class="text-leaf w-5 h-5 md:w-6 md:h-6"></i>
       </div>
      </div>
     </div>
    </div><!-- SLIDE 2: The Problem -->
-   <div class="slide flex-col items-center justify-center h-full w-full p-8" data-slide="2">
+   <div class="slide flex-col items-center justify-center min-h-full w-full p-4 md:p-8" data-slide="2">
     <div class="max-w-4xl mx-auto w-full">
-     <h2 class="text-3xl md:text-5xl font-bold text-leafDark mb-8 fade-up">The Problem</h2>
-     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div class="bg-white rounded-2xl p-6 shadow-sm border border-leaf/10 fade-up fade-up-d1">
-       <div class="icon-circle bg-red-100 mb-3"><i data-lucide="alert-triangle" class="text-red-500 w-5 h-5"></i>
+     <h2 class="text-2xl md:text-4xl lg:text-5xl font-bold text-leafDark mb-6 md:mb-8 fade-up">The Problem</h2>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
+      <div class="bg-white rounded-xl md:rounded-2xl p-4 md:p-6 shadow-sm border border-leaf/10 fade-up fade-up-d1">
+       <div class="icon-circle bg-red-100 mb-3">
+        <i data-lucide="alert-triangle" class="text-red-500 w-5 h-5"></i>
        </div>
-       <p class="font-semibold text-leafDark">Food Insecurity</p>
-       <p class="text-sm text-gray-500 mt-1">Limited access to nutritious food</p>
+       <p class="font-semibold text-leafDark text-sm md:text-base">Food Insecurity</p>
+       <p class="text-xs md:text-sm text-gray-500 mt-1">Limited access to nutritious food</p>
       </div>
-      <div class="bg-white rounded-2xl p-6 shadow-sm border border-leaf/10 fade-up fade-up-d2">
-       <div class="icon-circle bg-orange-100 mb-3"><i data-lucide="cloud" class="text-orange-500 w-5 h-5"></i>
+      <div class="bg-white rounded-xl md:rounded-2xl p-4 md:p-6 shadow-sm border border-leaf/10 fade-up fade-up-d2">
+       <div class="icon-circle bg-orange-100 mb-3">
+        <i data-lucide="cloud" class="text-orange-500 w-5 h-5"></i>
        </div>
-       <p class="font-semibold text-leafDark">Pollution</p>
-       <p class="text-sm text-gray-500 mt-1">Air &amp; soil contamination</p>
+       <p class="font-semibold text-leafDark text-sm md:text-base">Pollution</p>
+       <p class="text-xs md:text-sm text-gray-500 mt-1">Air &amp; soil contamination</p>
       </div>
-      <div class="bg-white rounded-2xl p-6 shadow-sm border border-leaf/10 fade-up fade-up-d3">
-       <div class="icon-circle bg-purple-100 mb-3"><i data-lucide="users" class="text-purple-500 w-5 h-5"></i>
+      <div class="bg-white rounded-xl md:rounded-2xl p-4 md:p-6 shadow-sm border border-leaf/10 fade-up fade-up-d3">
+       <div class="icon-circle bg-purple-100 mb-3">
+        <i data-lucide="users" class="text-purple-500 w-5 h-5"></i>
        </div>
-       <p class="font-semibold text-leafDark">Urban Inequality</p>
-       <p class="text-sm text-gray-500 mt-1">Marginalized communities</p>
+       <p class="font-semibold text-leafDark text-sm md:text-base">Urban Inequality</p>
+       <p class="text-xs md:text-sm text-gray-500 mt-1">Marginalized communities</p>
       </div>
-      <div class="bg-white rounded-2xl p-6 shadow-sm border border-leaf/10 fade-up fade-up-d4 md:col-span-1">
-       <div class="icon-circle bg-yellow-100 mb-3"><i data-lucide="apple" class="text-yellow-600 w-5 h-5"></i>
+      <div class="bg-white rounded-xl md:rounded-2xl p-4 md:p-6 shadow-sm border border-leaf/10 fade-up fade-up-d4 md:col-span-1">
+       <div class="icon-circle bg-yellow-100 mb-3">
+        <i data-lucide="apple" class="text-yellow-600 w-5 h-5"></i>
        </div>
-       <p class="font-semibold text-leafDark">No Healthy Food</p>
-       <p class="text-sm text-gray-500 mt-1">Food deserts in peripheries</p>
+       <p class="font-semibold text-leafDark text-sm md:text-base">No Healthy Food</p>
+       <p class="text-xs md:text-sm text-gray-500 mt-1">Food deserts in peripheries</p>
       </div>
-      <div class="bg-white rounded-2xl p-6 shadow-sm border border-leaf/10 fade-up fade-up-d5 md:col-span-2">
-       <div class="icon-circle bg-green-100 mb-3"><i data-lucide="leaf" class="text-green-600 w-5 h-5"></i>
+      <div class="bg-white rounded-xl md:rounded-2xl p-4 md:p-6 shadow-sm border border-leaf/10 fade-up fade-up-d5 md:col-span-2">
+       <div class="icon-circle bg-green-100 mb-3">
+        <i data-lucide="leaf" class="text-green-600 w-5 h-5"></i>
        </div>
-       <p class="font-semibold text-leafDark">Environmental Degradation</p>
-       <p class="text-sm text-gray-500 mt-1">Loss of green spaces and biodiversity</p>
+       <p class="font-semibold text-leafDark text-sm md:text-base">Environmental Degradation</p>
+       <p class="text-xs md:text-sm text-gray-500 mt-1">Loss of green spaces and biodiversity</p>
       </div>
      </div>
     </div>
    </div><!-- SLIDE 3: The Project -->
-   <div class="slide flex-col items-center justify-center h-full w-full p-8" data-slide="3">
+   <div class="slide flex-col items-center justify-center min-h-full w-full p-4 md:p-8" data-slide="3">
     <div class="max-w-4xl mx-auto w-full">
-     <h2 class="text-3xl md:text-5xl font-bold text-leafDark mb-2 fade-up">The Project</h2>
-     <p class="text-leafLight text-lg mb-8 fade-up fade-up-d1">Urban Agriculture Program — Bogotá</p>
-     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-      <div class="bg-leaf/5 rounded-2xl p-5 text-center fade-up fade-up-d1">
-       <div class="icon-circle bg-leaf/20 mx-auto mb-3"><i data-lucide="flower-2" class="text-leaf w-6 h-6"></i>
+     <h2 class="text-2xl md:text-4xl lg:text-5xl font-bold text-leafDark mb-2 fade-up">The Project</h2>
+     <p class="text-leafLight text-base md:text-lg mb-6 md:mb-8 fade-up fade-up-d1">Urban Agriculture Program — Bogotá</p>
+     <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
+      <div class="bg-leaf/5 rounded-lg md:rounded-2xl p-3 md:p-5 text-center fade-up fade-up-d1">
+       <div class="icon-circle bg-leaf/20 mx-auto mb-2 md:mb-3">
+        <i data-lucide="flower-2" class="text-leaf w-5 h-5"></i>
        </div>
-       <p class="font-semibold text-leafDark text-sm">Community Gardens</p>
+       <p class="font-semibold text-leafDark text-xs md:text-sm">Community Gardens</p>
       </div>
-      <div class="bg-leaf/5 rounded-2xl p-5 text-center fade-up fade-up-d2">
-       <div class="icon-circle bg-leaf/20 mx-auto mb-3"><i data-lucide="salad" class="text-leaf w-6 h-6"></i>
+      <div class="bg-leaf/5 rounded-lg md:rounded-2xl p-3 md:p-5 text-center fade-up fade-up-d2">
+       <div class="icon-circle bg-leaf/20 mx-auto mb-2 md:mb-3">
+        <i data-lucide="salad" class="text-leaf w-5 h-5"></i>
        </div>
-       <p class="font-semibold text-leafDark text-sm">Sustainable Food</p>
+       <p class="font-semibold text-leafDark text-xs md:text-sm">Sustainable Food</p>
       </div>
-      <div class="bg-leaf/5 rounded-2xl p-5 text-center fade-up fade-up-d3">
-       <div class="icon-circle bg-leaf/20 mx-auto mb-3"><i data-lucide="book-open" class="text-leaf w-6 h-6"></i>
+      <div class="bg-leaf/5 rounded-lg md:rounded-2xl p-3 md:p-5 text-center fade-up fade-up-d3">
+       <div class="icon-circle bg-leaf/20 mx-auto mb-2 md:mb-3">
+        <i data-lucide="book-open" class="text-leaf w-5 h-5"></i>
        </div>
-       <p class="font-semibold text-leafDark text-sm">Environmental Education</p>
+       <p class="font-semibold text-leafDark text-xs md:text-sm">Environmental Education</p>
       </div>
-      <div class="bg-leaf/5 rounded-2xl p-5 text-center fade-up fade-up-d4">
-       <div class="icon-circle bg-leaf/20 mx-auto mb-3"><i data-lucide="hand-metal" class="text-leaf w-6 h-6"></i>
+      <div class="bg-leaf/5 rounded-lg md:rounded-2xl p-3 md:p-5 text-center fade-up fade-up-d4">
+       <div class="icon-circle bg-leaf/20 mx-auto mb-2 md:mb-3">
+        <i data-lucide="hand-metal" class="text-leaf w-5 h-5"></i>
        </div>
-       <p class="font-semibold text-leafDark text-sm">Community Participation</p>
+       <p class="font-semibold text-leafDark text-xs md:text-sm">Community Participation</p>
       </div>
      </div>
-     <div class="mt-8 bg-white rounded-2xl p-6 border border-leaf/10 fade-up fade-up-d5">
-      <p class="text-gray-600 text-center italic">"Transforming rooftops, balconies, and vacant lots into productive green spaces"</p>
+     <div class="mt-6 md:mt-8 bg-white rounded-lg md:rounded-2xl p-4 md:p-6 border border-leaf/10 fade-up fade-up-d5">
+      <p class="text-gray-600 text-center italic text-sm md:text-base">"Transforming rooftops, balconies, and vacant lots into productive green spaces"</p>
      </div>
     </div>
    </div><!-- SLIDE 4: Impact & Results -->
-   <div class="slide flex-col items-center justify-center h-full w-full p-8" data-slide="4">
+   <div class="slide flex-col items-center justify-center min-h-full w-full p-4 md:p-8" data-slide="4">
     <div class="max-w-4xl mx-auto w-full">
-     <h2 class="text-3xl md:text-5xl font-bold text-leafDark mb-8 fade-up">Impact &amp; Results</h2>
-     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-      <div class="bg-white rounded-2xl p-6 text-center shadow-sm border border-leaf/10 fade-up fade-up-d1">
+     <h2 class="text-2xl md:text-4xl lg:text-5xl font-bold text-leafDark mb-6 md:mb-8 fade-up">Impact &amp; Results</h2>
+     <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
+      <div class="bg-white rounded-lg md:rounded-2xl p-3 md:p-6 text-center shadow-sm border border-leaf/10 fade-up fade-up-d1">
        <p class="stat-num font-black text-leaf">13K+</p>
-       <p class="text-sm text-gray-600 mt-1">Urban Gardens</p>
+       <p class="text-xs md:text-sm text-gray-600 mt-1">Urban Gardens</p>
       </div>
-      <div class="bg-white rounded-2xl p-6 text-center shadow-sm border border-leaf/10 fade-up fade-up-d2">
+      <div class="bg-white rounded-lg md:rounded-2xl p-3 md:p-6 text-center shadow-sm border border-leaf/10 fade-up fade-up-d2">
        <p class="stat-num font-black text-leafLight">20K</p>
-       <p class="text-sm text-gray-600 mt-1">Urban Farmers</p>
+       <p class="text-xs md:text-sm text-gray-600 mt-1">Urban Farmers</p>
       </div>
-      <div class="bg-white rounded-2xl p-6 text-center shadow-sm border border-leaf/10 fade-up fade-up-d3">
+      <div class="bg-white rounded-lg md:rounded-2xl p-3 md:p-6 text-center shadow-sm border border-leaf/10 fade-up fade-up-d3">
        <p class="stat-num font-black text-earth">92K</p>
-       <p class="text-sm text-gray-600 mt-1">Families Trained</p>
+       <p class="text-xs md:text-sm text-gray-600 mt-1">Families Trained</p>
       </div>
-      <div class="bg-white rounded-2xl p-6 text-center shadow-sm border border-leaf/10 fade-up fade-up-d4">
+      <div class="bg-white rounded-lg md:rounded-2xl p-3 md:p-6 text-center shadow-sm border border-leaf/10 fade-up fade-up-d4">
        <p class="stat-num font-black text-leafDark">240</p>
-       <p class="text-sm text-gray-600 mt-1">Gardens in Ciudad Bolívar</p>
+       <p class="text-xs md:text-sm text-gray-600 mt-1">Gardens in Ciudad Bolívar</p>
       </div>
      </div>
-     <div class="mt-6 bg-leaf/5 rounded-2xl p-4 fade-up fade-up-d5">
-      <div class="flex items-center gap-3">
-       <i data-lucide="trending-up" class="text-leaf w-5 h-5"></i>
-       <p class="text-sm text-leafDark font-medium">Bogotá leads Latin America in urban agriculture programs</p>
+     <div class="mt-4 md:mt-6 bg-leaf/5 rounded-lg md:rounded-2xl p-3 md:p-4 fade-up fade-up-d5">
+      <div class="flex items-center gap-2 md:gap-3"><i data-lucide="trending-up" class="text-leaf w-4 h-4 md:w-5 md:h-5 shrink-0"></i>
+       <p class="text-xs md:text-sm text-leafDark font-medium">Bogotá leads Latin America in urban agriculture programs</p>
       </div>
      </div>
     </div>
    </div><!-- SLIDE 5: SDGs -->
-   <div class="slide flex-col items-center justify-center h-full w-full p-8" data-slide="5">
+   <div class="slide flex-col items-center justify-center min-h-full w-full p-4 md:p-8" data-slide="5">
     <div class="max-w-4xl mx-auto w-full">
-     <h2 class="text-3xl md:text-5xl font-bold text-leafDark mb-8 fade-up">Sustainable Development Goals</h2>
-     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-2xl p-6 border border-yellow-200 fade-up fade-up-d1">
-       <div class="text-3xl font-black text-yellow-600 mb-2">
+     <h2 class="text-2xl md:text-4xl lg:text-5xl font-bold text-leafDark mb-6 md:mb-8 fade-up">Sustainable Development Goals</h2>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-6">
+      <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-lg md:rounded-2xl p-4 md:p-6 border border-yellow-200 fade-up fade-up-d1">
+       <div class="text-2xl md:text-3xl font-black text-yellow-600 mb-2">
         SDG 2
        </div>
-       <p class="font-bold text-gray-800">Zero Hunger</p>
-       <p class="text-sm text-gray-600 mt-2">Local food production reduces hunger in vulnerable communities</p>
+       <p class="font-bold text-gray-800 text-sm md:text-base">Zero Hunger</p>
+       <p class="text-xs md:text-sm text-gray-600 mt-2">Local food production reduces hunger in vulnerable communities</p>
       </div>
-      <div class="bg-gradient-to-br from-orange-50 to-orange-100 rounded-2xl p-6 border border-orange-200 fade-up fade-up-d2">
-       <div class="text-3xl font-black text-orange-600 mb-2">
+      <div class="bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg md:rounded-2xl p-4 md:p-6 border border-orange-200 fade-up fade-up-d2">
+       <div class="text-2xl md:text-3xl font-black text-orange-600 mb-2">
         SDG 11
        </div>
-       <p class="font-bold text-gray-800">Sustainable Cities</p>
-       <p class="text-sm text-gray-600 mt-2">Green infrastructure for resilient urban environments</p>
+       <p class="font-bold text-gray-800 text-sm md:text-base">Sustainable Cities</p>
+       <p class="text-xs md:text-sm text-gray-600 mt-2">Green infrastructure for resilient urban environments</p>
       </div>
-      <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-6 border border-green-200 fade-up fade-up-d3">
-       <div class="text-3xl font-black text-green-600 mb-2">
+      <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-lg md:rounded-2xl p-4 md:p-6 border border-green-200 fade-up fade-up-d3">
+       <div class="text-2xl md:text-3xl font-black text-green-600 mb-2">
         SDG 12
        </div>
-       <p class="font-bold text-gray-800">Responsible Consumption</p>
-       <p class="text-sm text-gray-600 mt-2">Circular economy and waste reduction through composting</p>
+       <p class="font-bold text-gray-800 text-sm md:text-base">Responsible Consumption</p>
+       <p class="text-xs md:text-sm text-gray-600 mt-2">Circular economy and waste reduction through composting</p>
       </div>
      </div>
-     <div class="mt-6 flex justify-center fade-up fade-up-d4">
-      <div class="bg-white rounded-full px-6 py-3 shadow-sm border border-leaf/10 flex items-center gap-2">
-       <i data-lucide="link" class="text-leaf w-4 h-4"></i> <span class="text-sm text-gray-600">All three goals interconnect through urban agriculture</span>
+     <div class="mt-6 md:mt-6 flex justify-center fade-up fade-up-d4">
+      <div class="bg-white rounded-full px-4 md:px-6 py-2 md:py-3 shadow-sm border border-leaf/10 flex items-center gap-2"><i data-lucide="link" class="text-leaf w-4 h-4"></i> <span class="text-xs md:text-sm text-gray-600">All three goals interconnect through urban agriculture</span>
       </div>
      </div>
     </div>
    </div><!-- SLIDE 6: Systems Engineering -->
-   <div class="slide flex-col items-center justify-center h-full w-full p-8" data-slide="6">
+   <div class="slide flex-col items-center justify-center min-h-full w-full p-4 md:p-8" data-slide="6">
     <div class="max-w-4xl mx-auto w-full">
-     <div class="flex items-center gap-3 mb-6 fade-up">
-      <div class="icon-circle bg-blue-100"><i data-lucide="cpu" class="text-blue-600 w-6 h-6"></i>
+     <div class="flex items-center gap-2 md:gap-3 mb-4 md:mb-6 fade-up">
+      <div class="icon-circle bg-blue-100">
+       <i data-lucide="cpu" class="text-blue-600 w-5 h-5"></i>
       </div>
-      <h2 class="text-3xl md:text-4xl font-bold text-leafDark">Systems Engineering</h2>
+      <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-leafDark">Systems Engineering</h2>
      </div>
-     <p class="text-gray-500 mb-6 fade-up fade-up-d1">Technology supporting ecological urbanism</p>
-     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div class="bg-white rounded-xl p-5 border border-blue-100 flex items-start gap-4 fade-up fade-up-d1">
-       <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center shrink-0"><i data-lucide="droplets" class="text-blue-500 w-5 h-5"></i>
+     <p class="text-gray-500 mb-4 md:mb-6 text-sm fade-up fade-up-d1">Technology supporting ecological urbanism</p>
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4">
+      <div class="bg-white rounded-lg md:rounded-xl p-4 md:p-5 border border-blue-100 flex items-start gap-3 md:gap-4 fade-up fade-up-d1">
+       <div class="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-blue-50 flex items-center justify-center shrink-0">
+        <i data-lucide="droplets" class="text-blue-500 w-4 h-4 md:w-5 md:h-5"></i>
        </div>
        <div>
-        <p class="font-semibold text-gray-800">Smart Irrigation</p>
+        <p class="font-semibold text-gray-800 text-sm md:text-base">Smart Irrigation</p>
         <p class="text-xs text-gray-500">Automated water management</p>
        </div>
       </div>
-      <div class="bg-white rounded-xl p-5 border border-blue-100 flex items-start gap-4 fade-up fade-up-d2">
-       <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center shrink-0"><i data-lucide="radio" class="text-blue-500 w-5 h-5"></i>
+      <div class="bg-white rounded-lg md:rounded-xl p-4 md:p-5 border border-blue-100 flex items-start gap-3 md:gap-4 fade-up fade-up-d2">
+       <div class="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-blue-50 flex items-center justify-center shrink-0">
+        <i data-lucide="radio" class="text-blue-500 w-4 h-4 md:w-5 md:h-5"></i>
        </div>
        <div>
-        <p class="font-semibold text-gray-800">IoT Sensors</p>
+        <p class="font-semibold text-gray-800 text-sm md:text-base">IoT Sensors</p>
         <p class="text-xs text-gray-500">Real-time soil &amp; climate monitoring</p>
        </div>
       </div>
-      <div class="bg-white rounded-xl p-5 border border-blue-100 flex items-start gap-4 fade-up fade-up-d3">
-       <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center shrink-0"><i data-lucide="bar-chart-2" class="text-blue-500 w-5 h-5"></i>
+      <div class="bg-white rounded-lg md:rounded-xl p-4 md:p-5 border border-blue-100 flex items-start gap-3 md:gap-4 fade-up fade-up-d3">
+       <div class="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-blue-50 flex items-center justify-center shrink-0">
+        <i data-lucide="bar-chart-2" class="text-blue-500 w-4 h-4 md:w-5 md:h-5"></i>
        </div>
        <div>
-        <p class="font-semibold text-gray-800">Data Analysis</p>
+        <p class="font-semibold text-gray-800 text-sm md:text-base">Data Analysis</p>
         <p class="text-xs text-gray-500">Optimizing crop yields</p>
        </div>
       </div>
-      <div class="bg-white rounded-xl p-5 border border-blue-100 flex items-start gap-4 fade-up fade-up-d4">
-       <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center shrink-0"><i data-lucide="smartphone" class="text-blue-500 w-5 h-5"></i>
+      <div class="bg-white rounded-lg md:rounded-xl p-4 md:p-5 border border-blue-100 flex items-start gap-3 md:gap-4 fade-up fade-up-d4">
+       <div class="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-blue-50 flex items-center justify-center shrink-0">
+        <i data-lucide="smartphone" class="text-blue-500 w-4 h-4 md:w-5 md:h-5"></i>
        </div>
        <div>
-        <p class="font-semibold text-gray-800">Mobile Apps</p>
+        <p class="font-semibold text-gray-800 text-sm md:text-base">Mobile Apps</p>
         <p class="text-xs text-gray-500">Community coordination tools</p>
        </div>
       </div>
-      <div class="bg-white rounded-xl p-5 border border-blue-100 flex items-start gap-4 fade-up fade-up-d5 md:col-span-2">
-       <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center shrink-0"><i data-lucide="brain" class="text-blue-500 w-5 h-5"></i>
+      <div class="bg-white rounded-lg md:rounded-xl p-4 md:p-5 border border-blue-100 flex items-start gap-3 md:gap-4 fade-up fade-up-d5 md:col-span-2">
+       <div class="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-blue-50 flex items-center justify-center shrink-0">
+        <i data-lucide="brain" class="text-blue-500 w-4 h-4 md:w-5 md:h-5"></i>
        </div>
        <div>
-        <p class="font-semibold text-gray-800">Artificial Intelligence</p>
+        <p class="font-semibold text-gray-800 text-sm md:text-base">Artificial Intelligence</p>
         <p class="text-xs text-gray-500">Predictive models for pest control &amp; harvest planning</p>
        </div>
       </div>
      </div>
     </div>
    </div><!-- SLIDE 7: Pharmaceutical Chemistry -->
-   <div class="slide flex-col items-center justify-center h-full w-full p-8" data-slide="7">
+   <div class="slide flex-col items-center justify-center min-h-full w-full p-4 md:p-8" data-slide="7">
     <div class="max-w-4xl mx-auto w-full">
-     <div class="flex items-center gap-3 mb-6 fade-up">
-      <div class="icon-circle bg-emerald-100"><i data-lucide="flask-round" class="text-emerald-600 w-6 h-6"></i>
+     <div class="flex items-center gap-2 md:gap-3 mb-4 md:mb-6 fade-up">
+      <div class="icon-circle bg-emerald-100">
+       <i data-lucide="flask-round" class="text-emerald-600 w-5 h-5"></i>
       </div>
-      <h2 class="text-3xl md:text-4xl font-bold text-leafDark">Pharmaceutical Chemistry</h2>
+      <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-leafDark">Pharmaceutical Chemistry</h2>
      </div>
-     <p class="text-gray-500 mb-6 fade-up fade-up-d1">Contributing to sustainability &amp; public health</p>
-     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div class="bg-white rounded-xl p-5 border border-emerald-100 flex items-start gap-4 fade-up fade-up-d1">
-       <div class="w-10 h-10 rounded-lg bg-emerald-50 flex items-center justify-center shrink-0"><i data-lucide="heart-pulse" class="text-emerald-500 w-5 h-5"></i>
+     <p class="text-gray-500 mb-4 md:mb-6 text-sm fade-up fade-up-d1">Contributing to sustainability &amp; public health</p>
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4">
+      <div class="bg-white rounded-lg md:rounded-xl p-4 md:p-5 border border-emerald-100 flex items-start gap-3 md:gap-4 fade-up fade-up-d1">
+       <div class="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-emerald-50 flex items-center justify-center shrink-0">
+        <i data-lucide="heart-pulse" class="text-emerald-500 w-4 h-4 md:w-5 md:h-5"></i>
        </div>
        <div>
-        <p class="font-semibold text-gray-800">Nutrition &amp; Health</p>
+        <p class="font-semibold text-gray-800 text-sm md:text-base">Nutrition &amp; Health</p>
         <p class="text-xs text-gray-500">Awareness of nutritional value</p>
        </div>
       </div>
-      <div class="bg-white rounded-xl p-5 border border-emerald-100 flex items-start gap-4 fade-up fade-up-d2">
-       <div class="w-10 h-10 rounded-lg bg-emerald-50 flex items-center justify-center shrink-0"><i data-lucide="shield-check" class="text-emerald-500 w-5 h-5"></i>
+      <div class="bg-white rounded-lg md:rounded-xl p-4 md:p-5 border border-emerald-100 flex items-start gap-3 md:gap-4 fade-up fade-up-d2">
+       <div class="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-emerald-50 flex items-center justify-center shrink-0">
+        <i data-lucide="shield-check" class="text-emerald-500 w-4 h-4 md:w-5 md:h-5"></i>
        </div>
        <div>
-        <p class="font-semibold text-gray-800">Food Safety</p>
+        <p class="font-semibold text-gray-800 text-sm md:text-base">Food Safety</p>
         <p class="text-xs text-gray-500">Quality control &amp; testing</p>
        </div>
       </div>
-      <div class="bg-white rounded-xl p-5 border border-emerald-100 flex items-start gap-4 fade-up fade-up-d3">
-       <div class="w-10 h-10 rounded-lg bg-emerald-50 flex items-center justify-center shrink-0"><i data-lucide="trees" class="text-emerald-500 w-5 h-5"></i>
+      <div class="bg-white rounded-lg md:rounded-xl p-4 md:p-5 border border-emerald-100 flex items-start gap-3 md:gap-4 fade-up fade-up-d3">
+       <div class="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-emerald-50 flex items-center justify-center shrink-0">
+        <i data-lucide="trees" class="text-emerald-500 w-4 h-4 md:w-5 md:h-5"></i>
        </div>
        <div>
-        <p class="font-semibold text-gray-800">Environmental Health</p>
+        <p class="font-semibold text-gray-800 text-sm md:text-base">Environmental Health</p>
         <p class="text-xs text-gray-500">Soil &amp; water analysis</p>
        </div>
       </div>
-      <div class="bg-white rounded-xl p-5 border border-emerald-100 flex items-start gap-4 fade-up fade-up-d4">
-       <div class="w-10 h-10 rounded-lg bg-emerald-50 flex items-center justify-center shrink-0"><i data-lucide="recycle" class="text-emerald-500 w-5 h-5"></i>
+      <div class="bg-white rounded-lg md:rounded-xl p-4 md:p-5 border border-emerald-100 flex items-start gap-3 md:gap-4 fade-up fade-up-d4">
+       <div class="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-emerald-50 flex items-center justify-center shrink-0">
+        <i data-lucide="recycle" class="text-emerald-500 w-4 h-4 md:w-5 md:h-5"></i>
        </div>
        <div>
-        <p class="font-semibold text-gray-800">Green Chemistry</p>
+        <p class="font-semibold text-gray-800 text-sm md:text-base">Green Chemistry</p>
         <p class="text-xs text-gray-500">Sustainable chemical practices</p>
        </div>
       </div>
-      <div class="bg-white rounded-xl p-5 border border-emerald-100 flex items-start gap-4 fade-up fade-up-d5 md:col-span-2">
-       <div class="w-10 h-10 rounded-lg bg-emerald-50 flex items-center justify-center shrink-0"><i data-lucide="activity" class="text-emerald-500 w-5 h-5"></i>
+      <div class="bg-white rounded-lg md:rounded-xl p-4 md:p-5 border border-emerald-100 flex items-start gap-3 md:gap-4 fade-up fade-up-d5 md:col-span-2">
+       <div class="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-emerald-50 flex items-center justify-center shrink-0">
+        <i data-lucide="activity" class="text-emerald-500 w-4 h-4 md:w-5 md:h-5"></i>
        </div>
        <div>
-        <p class="font-semibold text-gray-800">Disease Prevention</p>
+        <p class="font-semibold text-gray-800 text-sm md:text-base">Disease Prevention</p>
         <p class="text-xs text-gray-500">Addressing nutrition-related &amp; pollution-caused diseases</p>
        </div>
       </div>
      </div>
     </div>
    </div><!-- SLIDE 8: Peace & Equality -->
-   <div class="slide flex-col items-center justify-center h-full w-full p-8" data-slide="8">
+   <div class="slide flex-col items-center justify-center min-h-full w-full p-4 md:p-8" data-slide="8">
     <div class="max-w-4xl mx-auto w-full text-center">
-     <h2 class="text-3xl md:text-5xl font-bold text-leafDark mb-8 fade-up">Peace, Equality &amp; Community</h2>
-     <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
-      <div class="bg-leaf/5 rounded-2xl p-5 fade-up fade-up-d1">
-       <div class="icon-circle bg-leaf/20 mx-auto mb-2"><i data-lucide="smile" class="text-leaf w-5 h-5"></i>
+     <h2 class="text-2xl md:text-4xl lg:text-5xl font-bold text-leafDark mb-6 md:mb-8 fade-up">Peace, Equality &amp; Community</h2>
+     <div class="grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-4">
+      <div class="bg-leaf/5 rounded-lg md:rounded-2xl p-3 md:p-5 fade-up fade-up-d1">
+       <div class="icon-circle bg-leaf/20 mx-auto mb-2">
+        <i data-lucide="smile" class="text-leaf w-4 h-4"></i>
        </div>
-       <p class="text-xs font-semibold text-leafDark">Quality of Life</p>
+       <p class="text-xs md:text-sm font-semibold text-leafDark">Quality of Life</p>
       </div>
-      <div class="bg-leaf/5 rounded-2xl p-5 fade-up fade-up-d2">
-       <div class="icon-circle bg-leaf/20 mx-auto mb-2"><i data-lucide="users" class="text-leaf w-5 h-5"></i>
+      <div class="bg-leaf/5 rounded-lg md:rounded-2xl p-3 md:p-5 fade-up fade-up-d2">
+       <div class="icon-circle bg-leaf/20 mx-auto mb-2">
+        <i data-lucide="users" class="text-leaf w-4 h-4"></i>
        </div>
-       <p class="text-xs font-semibold text-leafDark">Social Inclusion</p>
+       <p class="text-xs md:text-sm font-semibold text-leafDark">Social Inclusion</p>
       </div>
-      <div class="bg-leaf/5 rounded-2xl p-5 fade-up fade-up-d3">
-       <div class="icon-circle bg-leaf/20 mx-auto mb-2"><i data-lucide="heart-handshake" class="text-leaf w-5 h-5"></i>
+      <div class="bg-leaf/5 rounded-lg md:rounded-2xl p-3 md:p-5 fade-up fade-up-d3">
+       <div class="icon-circle bg-leaf/20 mx-auto mb-2">
+        <i data-lucide="heart-handshake" class="text-leaf w-4 h-4"></i>
        </div>
-       <p class="text-xs font-semibold text-leafDark">Cooperation</p>
+       <p class="text-xs md:text-sm font-semibold text-leafDark">Cooperation</p>
       </div>
-      <div class="bg-leaf/5 rounded-2xl p-5 fade-up fade-up-d4">
-       <div class="icon-circle bg-leaf/20 mx-auto mb-2"><i data-lucide="leaf" class="text-leaf w-5 h-5"></i>
+      <div class="bg-leaf/5 rounded-lg md:rounded-2xl p-3 md:p-5 fade-up fade-up-d4">
+       <div class="icon-circle bg-leaf/20 mx-auto mb-2">
+        <i data-lucide="leaf" class="text-leaf w-4 h-4"></i>
        </div>
-       <p class="text-xs font-semibold text-leafDark">Eco Awareness</p>
+       <p class="text-xs md:text-sm font-semibold text-leafDark">Eco Awareness</p>
       </div>
-      <div class="bg-leaf/5 rounded-2xl p-5 fade-up fade-up-d5 col-span-2 md:col-span-1">
-       <div class="icon-circle bg-leaf/20 mx-auto mb-2"><i data-lucide="equal" class="text-leaf w-5 h-5"></i>
+      <div class="bg-leaf/5 rounded-lg md:rounded-2xl p-3 md:p-5 fade-up fade-up-d5 col-span-2 md:col-span-1">
+       <div class="icon-circle bg-leaf/20 mx-auto mb-2">
+        <i data-lucide="equal" class="text-leaf w-4 h-4"></i>
        </div>
-       <p class="text-xs font-semibold text-leafDark">Equal Access</p>
+       <p class="text-xs md:text-sm font-semibold text-leafDark">Equal Access</p>
       </div>
      </div>
-     <div class="mt-8 bg-white rounded-2xl p-6 border border-leaf/10 fade-up fade-up-d5">
-      <p class="text-gray-600 italic">"Urban agriculture builds bridges between communities, nature, and opportunity"</p>
+     <div class="mt-6 md:mt-8 bg-white rounded-lg md:rounded-2xl p-4 md:p-6 border border-leaf/10 fade-up fade-up-d5">
+      <p class="text-gray-600 italic text-sm md:text-base">"Urban agriculture builds bridges between communities, nature, and opportunity"</p>
      </div>
     </div>
    </div><!-- SLIDE 9: Final Reflection -->
-   <div class="slide flex-col items-center justify-center h-full w-full p-8" data-slide="9">
+   <div class="slide flex-col items-center justify-center min-h-full w-full p-4 md:p-8" data-slide="9">
     <div class="max-w-3xl mx-auto w-full text-center">
-     <h2 class="text-3xl md:text-5xl font-bold text-leafDark mb-10 fade-up">Final Reflection</h2>
-     <div class="space-y-5">
-      <div class="bg-white rounded-2xl p-6 border-l-4 border-leaf shadow-sm text-left fade-up fade-up-d1">
-       <p class="text-lg text-gray-700 font-medium">🌱 Small actions create big changes</p>
+     <h2 class="text-2xl md:text-4xl lg:text-5xl font-bold text-leafDark mb-6 md:mb-10 fade-up">Final Reflection</h2>
+     <div class="space-y-3 md:space-y-5">
+      <div class="bg-white rounded-lg md:rounded-2xl p-4 md:p-6 border-l-4 border-leaf shadow-sm text-left fade-up fade-up-d1">
+       <p class="text-base md:text-lg text-gray-700 font-medium">🌱 Small actions create big changes</p>
       </div>
-      <div class="bg-white rounded-2xl p-6 border-l-4 border-leafLight shadow-sm text-left fade-up fade-up-d2">
-       <p class="text-lg text-gray-700 font-medium">🏙️ Sustainability improves communities</p>
+      <div class="bg-white rounded-lg md:rounded-2xl p-4 md:p-6 border-l-4 border-leafLight shadow-sm text-left fade-up fade-up-d2">
+       <p class="text-base md:text-lg text-gray-700 font-medium">🏙️ Sustainability improves communities</p>
       </div>
-      <div class="bg-white rounded-2xl p-6 border-l-4 border-earth shadow-sm text-left fade-up fade-up-d3">
-       <p class="text-lg text-gray-700 font-medium">🔬 Technology &amp; science support ecological urbanism</p>
+      <div class="bg-white rounded-lg md:rounded-2xl p-4 md:p-6 border-l-4 border-earth shadow-sm text-left fade-up fade-up-d3">
+       <p class="text-base md:text-lg text-gray-700 font-medium">🔬 Technology &amp; science support ecological urbanism</p>
       </div>
      </div>
-     <div class="mt-8 fade-up fade-up-d4">
-      <p class="text-leafLight font-light text-lg">The future of cities is green, inclusive, and collaborative.</p>
+     <div class="mt-6 md:mt-8 fade-up fade-up-d4">
+      <p class="text-leafLight font-light text-base md:text-lg">The future of cities is green, inclusive, and collaborative.</p>
      </div>
     </div>
    </div><!-- SLIDE 10: Self-Assessment -->
-   <div class="slide flex-col items-center justify-center h-full w-full p-8" data-slide="10">
+   <div class="slide flex-col items-center justify-center min-h-full w-full p-4 md:p-8" data-slide="10">
     <div class="max-w-2xl mx-auto w-full text-center">
-     <h2 class="text-3xl md:text-5xl font-bold text-leafDark mb-8 fade-up">Self-Assessment</h2>
-     <div class="space-y-4 text-left">
-      <div class="bg-white rounded-2xl p-6 border border-leaf/10 fade-up fade-up-d1">
-       <p class="font-semibold text-leafDark mb-2">What did we learn?</p>
-       <p class="text-sm text-gray-500">Urban agriculture connects technology, health, and community development</p>
+     <h2 class="text-2xl md:text-4xl lg:text-5xl font-bold text-leafDark mb-6 md:mb-8 fade-up">Self-Assessment</h2>
+     <div class="space-y-3 md:space-y-4 text-left">
+      <div class="bg-white rounded-lg md:rounded-2xl p-4 md:p-6 border border-leaf/10 fade-up fade-up-d1">
+       <p class="font-semibold text-leafDark mb-1 md:mb-2 text-sm md:text-base">What did we learn?</p>
+       <p class="text-xs md:text-sm text-gray-500">Urban agriculture connects technology, health, and community development</p>
       </div>
-      <div class="bg-white rounded-2xl p-6 border border-leaf/10 fade-up fade-up-d2">
-       <p class="font-semibold text-leafDark mb-2">What should we improve?</p>
-       <p class="text-sm text-gray-500">Deeper field research and community engagement</p>
+      <div class="bg-white rounded-lg md:rounded-2xl p-4 md:p-6 border border-leaf/10 fade-up fade-up-d2">
+       <p class="font-semibold text-leafDark mb-1 md:mb-2 text-sm md:text-base">What should we improve?</p>
+       <p class="text-xs md:text-sm text-gray-500">Deeper field research and community engagement</p>
       </div>
-      <div class="bg-leaf/5 rounded-2xl p-6 border border-leaf/20 fade-up fade-up-d3">
-       <p class="font-semibold text-leafDark mb-2">Final Grade</p>
-       <p class="text-4xl font-black text-leaf">5 / 5</p>
+      <div class="bg-leaf/5 rounded-lg md:rounded-2xl p-4 md:p-6 border border-leaf/20 fade-up fade-up-d3">
+       <p class="font-semibold text-leafDark mb-2 text-sm md:text-base">Final Grade</p>
+       <p class="text-3xl md:text-4xl font-black text-leaf">5 / 5</p>
       </div>
      </div>
-     <div class="mt-6 fade-up fade-up-d4">
-      <p class="text-sm text-gray-400">Thank you! 🌿</p>
+     <div class="mt-4 md:mt-6 fade-up fade-up-d4">
+      <p class="text-xs md:text-sm text-gray-400">Thank you! 🌿</p>
      </div>
     </div>
    </div><!-- Navigation -->
-   <div class="absolute bottom-6 left-0 right-0 flex justify-center gap-4 z-50">
-    <button id="prevBtn" onclick="changeSlide(-1)" class="bg-white border border-leaf/20 rounded-full w-12 h-12 flex items-center justify-center shadow-sm hover:bg-leaf/5 transition disabled:opacity-30" disabled> <i data-lucide="chevron-left" class="text-leafDark w-5 h-5"></i> </button> <button id="nextBtn" onclick="changeSlide(1)" class="bg-leaf text-white rounded-full w-12 h-12 flex items-center justify-center shadow-sm hover:bg-leafDark transition"> <i data-lucide="chevron-right" class="w-5 h-5"></i> </button>
+   <div class="absolute bottom-6 left-0 right-0 flex justify-center gap-4 z-50"><button id="prevBtn" onclick="changeSlide(-1)" class="bg-white border border-leaf/20 rounded-full w-12 h-12 flex items-center justify-center shadow-sm hover:bg-leaf/5 transition disabled:opacity-30" disabled> <i data-lucide="chevron-left" class="text-leafDark w-5 h-5"></i> </button> <button id="nextBtn" onclick="changeSlide(1)" class="bg-leaf text-white rounded-full w-12 h-12 flex items-center justify-center shadow-sm hover:bg-leafDark transition"> <i data-lucide="chevron-right" class="w-5 h-5"></i> </button>
    </div>
   </div>
   <script>
@@ -458,5 +487,5 @@
       ])
     });
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9faf2d29a41bf77a',t:'MTc3ODY0OTIzMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9faf38ab063cf786',t:'MTc3ODY0OTcwNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
